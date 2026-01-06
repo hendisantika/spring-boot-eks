@@ -9,8 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>id.my.hendisantika</groupId>
-    <artifactId>spring-boot-eks</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>eks</artifactId>
+    <version>0.0.1</version>
     <name>spring-boot-eks</name>
     <description>spring-boot-eks</description>
     <properties>
