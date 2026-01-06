@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  namespace: demo-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-app
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      containers:
+        - name: demo-app
+          image: rohan139/deploy-repo-main:main-latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: demo-db-secret
+                  key: DB_URL
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: demo-db-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: demo-db-secret
+                  key: DB_PASSWORD
+            - name: DB_DRIVER
+              value: org.postgresql.Driver
+            - name: DB_DDL_AUTO
+              value: update
+            - name: DB_SHOW_SQL
+              value: "false"
