@@ -1,0 +1,1 @@
+web: java -jar target/eks-0.0.1.jar
