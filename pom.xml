@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.4</version> <!-- latest stable -->
+            <version>42.7.8</version> <!-- latest stable -->
             <scope>runtime</scope>
         </dependency>
         <!-- Spring Boot Starter Security -->
