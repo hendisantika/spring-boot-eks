@@ -73,7 +73,7 @@ jobs:
       # ---- main → deploy-repo-main ----
       - name: Build & push MAIN image
         if: github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -84,7 +84,7 @@ jobs:
       # ---- develop (dev env) → deploy-repo-dev ----
       - name: Build & push DEV image
         if: github.ref == 'refs/heads/develop'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -95,7 +95,7 @@ jobs:
       # ---- qa → deploy-repo-qa ----
       - name: Build & push QA image
         if: github.ref == 'refs/heads/qa'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
@@ -106,7 +106,7 @@ jobs:
       # ---- prod → deploy-repo-prod ----
       - name: Build & push PROD image
         if: github.ref == 'refs/heads/prod'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
