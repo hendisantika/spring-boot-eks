@@ -2,8 +2,6 @@ package id.my.hendisantika.springbooteks.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -25,17 +23,17 @@ public class JwtUtil {
 
     public JwtUtil() {}
     // Generate a strong key for HS256 (will always be secure enough)
-    private final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);// 🔐 change to strong secret in prod
+    private final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();// 🔐 change to strong secret in prod
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
 
     // Generate token
     public String generateToken(String username) {
         return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(SECRET_KEY, Jwts.SIG.HS256)
                 .compact();
     }
 
@@ -55,8 +53,9 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+                .verifyWith(SECRET_KEY)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 }
